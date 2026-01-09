@@ -10,15 +10,55 @@ if sys.platform == "win32":
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.db.session import engine, Base
+from app.db.session import engine, Base, SessionLocal
 from app.api import auth, courses, schedules, teachers, classrooms, users
 
-# Crear tablas
-try:
-    Base.metadata.create_all(bind=engine)
-except Exception as e:
-    print(f"Warning: Could not create database tables: {e}")
-    print("The application will start but database operations may fail.")
+# Importar todos los modelos para que SQLAlchemy los registre
+from app.models.user import User, UserRole
+from app.models.teacher import Teacher, TeacherAvailability
+from app.models.course import Course
+from app.models.classroom import Classroom
+from app.models.schedule import Schedule, ScheduleSlot
+from app.core.security import get_password_hash
+
+def init_db():
+    """Inicializar base de datos: crear tablas y usuario admin"""
+    print("🔄 Inicializando base de datos...")
+    
+    try:
+        # Crear todas las tablas
+        Base.metadata.create_all(bind=engine)
+        print("✅ Tablas creadas correctamente")
+        
+        # Crear usuario admin si no existe
+        db = SessionLocal()
+        try:
+            existing_admin = db.query(User).filter(User.role == UserRole.SUPER_ADMIN).first()
+            if not existing_admin:
+                admin_password = os.environ.get("ADMIN_PASSWORD", "admin123")
+                admin_user = User(
+                    email="ADMIN@SISTEMA.EDU",
+                    username="ADMIN",
+                    full_name="ADMINISTRADOR DEL SISTEMA",
+                    hashed_password=get_password_hash(admin_password),
+                    role=UserRole.SUPER_ADMIN,
+                    is_active=True
+                )
+                db.add(admin_user)
+                db.commit()
+                print("✅ Usuario administrador creado")
+            else:
+                print("ℹ️  Usuario administrador ya existe")
+        finally:
+            db.close()
+            
+    except Exception as e:
+        print(f"❌ Error al inicializar base de datos: {e}")
+        import traceback
+        traceback.print_exc()
+
+# Inicializar DB al arrancar
+init_db()
 
 # Crear aplicación FastAPI
 app = FastAPI(

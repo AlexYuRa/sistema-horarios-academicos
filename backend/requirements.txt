@@ -6,12 +6,11 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-dotenv==1.0.0
 
-# Base de datos (SQLite incluido en Python, no necesita driver)
+# Base de datos
 sqlalchemy>=2.0.25
 alembic>=1.13.1
-# PostgreSQL y Redis comentados - solo para producción
-# psycopg2-binary>=2.9.10
-# redis>=5.0.1
+# PostgreSQL driver para producción
+psycopg2-binary>=2.9.10
 
 # Algoritmos de optimización
 deap==1.4.1

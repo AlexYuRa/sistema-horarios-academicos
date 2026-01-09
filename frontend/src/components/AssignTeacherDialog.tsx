@@ -13,7 +13,6 @@ import {
   Box,
   Typography,
   CircularProgress,
-  Chip,
 } from '@mui/material';
 import { Person, Warning, CheckCircle } from '@mui/icons-material';
 import { useQuery } from '@tanstack/react-query';

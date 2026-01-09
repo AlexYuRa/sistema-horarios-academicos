@@ -78,7 +78,6 @@ export default function TeacherSelfAssignCourse({ teacherId }: TeacherSelfAssign
 
   const myCourses = courses?.filter((c) => c.teacher_id === teacherId) || [];
   const availableCourses = courses?.filter((c) => !c.teacher_id) || [];
-  const otherCourses = courses?.filter((c) => c.teacher_id && c.teacher_id !== teacherId) || [];
 
   const totalWeeklyHours = myCourses.reduce(
     (sum, course) => sum + course.theory_hours + course.practice_hours,

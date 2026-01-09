@@ -27,7 +27,7 @@ import {
   CircularProgress,
   LinearProgress,
 } from '@mui/material';
-import { Add, Visibility, Delete, Refresh, PlayArrow } from '@mui/icons-material';
+import { Visibility, Delete, Refresh, PlayArrow } from '@mui/icons-material';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { scheduleService } from '@/services/scheduleService';
 import { Schedule, ScheduleGenerateRequest, ScheduleStatus } from '@/types';

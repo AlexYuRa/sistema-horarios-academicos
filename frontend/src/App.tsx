@@ -13,7 +13,6 @@ import TeachersPage from './pages/TeachersPage';
 import ClassroomsPage from './pages/ClassroomsPage';
 import SchedulesPage from './pages/SchedulesPage';
 import ScheduleViewer from './pages/ScheduleViewer';
-import Layout from './components/Layout';
 import ProtectedRouteWrapper from './components/ProtectedRouteWrapper';
 
 // Create a client

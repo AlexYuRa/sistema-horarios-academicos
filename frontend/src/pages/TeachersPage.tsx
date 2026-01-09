@@ -24,10 +24,10 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import { Add, Edit, Delete, Refresh, Person, School as SchoolIcon } from '@mui/icons-material';
+import { Add, Edit, Delete, Refresh, Person } from '@mui/icons-material';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { teacherService, TeacherCreate, TeacherUpdate } from '@/services/teacherService';
-import { Teacher } from '@/types';
+import { Teacher, UserRole } from '@/types';
 import { useAuthStore } from '@/store/authStore';
 import TeacherAvailabilityEditor from '@/components/TeacherAvailabilityEditor';
 import TeacherSelfAssignCourse from '@/components/TeacherSelfAssignCourse';
@@ -52,8 +52,8 @@ export default function TeachersPage() {
   const [tabValue, setTabValue] = useState(0);
 
   // Verificar si el usuario es teacher
-  const isTeacher = user?.role === 'teacher';
-  const isAdmin = user?.role === 'super_admin' || user?.role === 'admin' || user?.role === 'coordinator';
+  const isTeacher = user?.role === UserRole.TEACHER;
+  const isAdmin = user?.role === UserRole.SUPER_ADMIN || user?.role === UserRole.COORDINATOR;
 
   // Fetch teachers
   const { data: teachers, isLoading, refetch } = useQuery<Teacher[]>({
@@ -224,7 +224,7 @@ export default function TeachersPage() {
 
         {/* Tabs para disponibilidad y cursos */}
         <Paper sx={{ mb: 2 }}>
-          <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
+          <Tabs value={tabValue} onChange={(_e, v) => setTabValue(v)}>
             <Tab label="Disponibilidad Horaria" />
             <Tab label="Mis Cursos" />
           </Tabs>

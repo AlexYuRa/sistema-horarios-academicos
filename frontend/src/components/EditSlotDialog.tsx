@@ -38,7 +38,7 @@ interface ValidationError {
 export default function EditSlotDialog({
   open,
   slot,
-  scheduleId,
+  scheduleId: _scheduleId,
   allSlots,
   onClose,
   onSave,
@@ -132,7 +132,7 @@ export default function EditSlotDialog({
       const teacher = teachers?.find((t) => t.id === formData.teacher_id);
       errors.push({
         field: 'teacher_id',
-        message: `El docente ya tiene otra clase el ${DAYS_OF_WEEK[formData.day_of_week!]} de ${formData.start_time} a ${formData.end_time}`,
+        message: `El docente ${teacher?.full_name || ''} ya tiene otra clase el ${DAYS_OF_WEEK[formData.day_of_week!]} de ${formData.start_time} a ${formData.end_time}`,
       });
     }
 

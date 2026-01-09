@@ -17,12 +17,12 @@ import {
   Switch,
   FormControlLabel,
 } from '@mui/material';
-import { Download, Print, Edit, EditOff } from '@mui/icons-material';
+import { Download, Print } from '@mui/icons-material';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { scheduleService } from '@/services/scheduleService';
 import ScheduleGrid from '@/components/ScheduleGrid';
 import EditSlotDialog from '@/components/EditSlotDialog';
-import { Schedule, ScheduleStatus, ScheduleSlot } from '@/types';
+import { Schedule, ScheduleStatus, ScheduleSlot, UserRole } from '@/types';
 import { exportToCSV, exportToExcel, exportToJSON, printSchedule } from '@/utils/exportUtils';
 import { useAuthStore } from '@/store/authStore';
 
@@ -51,7 +51,7 @@ export default function ScheduleViewer() {
   const [editingSlot, setEditingSlot] = useState<ScheduleSlot | null>(null);
 
   // Verificar permisos de edición
-  const canEdit = user?.role === 'super_admin' || user?.role === 'admin' || user?.role === 'coordinator';
+  const canEdit = user?.role === UserRole.SUPER_ADMIN || user?.role === UserRole.COORDINATOR;
 
   // Fetch all schedules for dropdown
   const { data: schedules } = useQuery<Schedule[]>({

@@ -10,10 +10,8 @@ import {
   TableHead,
   TableRow,
   Chip,
-  Tooltip,
-  IconButton,
 } from '@mui/material';
-import { Edit as EditIcon, Info as InfoIcon } from '@mui/icons-material';
+import { Edit as EditIcon } from '@mui/icons-material';
 import { ScheduleSlot, DAYS_OF_WEEK, TIME_SLOTS } from '@/types';
 
 interface ScheduleGridProps {
@@ -25,11 +23,11 @@ interface ScheduleGridProps {
 
 export default function ScheduleGrid({
   slots,
-  viewMode = 'cycle',
+  viewMode: _viewMode = 'cycle',
   onSlotClick,
   editable = false,
 }: ScheduleGridProps) {
-  const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
+  const [, setSelectedSlot] = useState<ScheduleSlot | null>(null);
 
   // Crear una matriz de horarios [día][franja_horaria] = slot
   const scheduleMatrix: (ScheduleSlot | null)[][] = Array(7)

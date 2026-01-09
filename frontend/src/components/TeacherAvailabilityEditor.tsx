@@ -13,7 +13,6 @@ import {
   Checkbox,
   Alert,
   Chip,
-  CircularProgress,
 } from '@mui/material';
 import { Save, Schedule } from '@mui/icons-material';
 import { TeacherAvailability, DAYS_OF_WEEK } from '@/types';

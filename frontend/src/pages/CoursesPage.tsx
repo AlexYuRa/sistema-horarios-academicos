@@ -106,7 +106,7 @@ export default function CoursesPage() {
 
   // Assign teacher mutation
   const assignTeacherMutation = useMutation({
-    mutationFn: ({ courseId, teacherId }: { courseId: number; teacherId: number | null }) =>
+    mutationFn: ({ courseId, teacherId }: { courseId: number; teacherId: number | undefined }) =>
       courseService.updateCourse(courseId, { teacher_id: teacherId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['courses'] });
@@ -175,7 +175,7 @@ export default function CoursesPage() {
   };
 
   const handleAssignTeacher = async (courseId: number, teacherId: number | null) => {
-    await assignTeacherMutation.mutateAsync({ courseId, teacherId });
+    await assignTeacherMutation.mutateAsync({ courseId, teacherId: teacherId ?? undefined });
   };
 
   const handleChange = (field: keyof CourseCreate, value: any) => {
@@ -183,7 +183,7 @@ export default function CoursesPage() {
   };
 
   // Determinar tipo de curso automaticamente basado en las horas
-  const determineCourseType = (theoryHours: number, practiceHours: number, labHours: number): CourseType => {
+  const determineCourseType = (_theoryHours: number, practiceHours: number, labHours: number): CourseType => {
     const hasPractice = practiceHours > 0;
     const hasLab = labHours > 0;
 

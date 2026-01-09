@@ -21,6 +21,7 @@ import {
 } from '@mui/icons-material';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '../store/authStore';
+import { UserRole } from '@/types';
 import { courseService } from '@/services/courseService';
 import { teacherService } from '@/services/teacherService';
 import { classroomService } from '@/services/classroomService';
@@ -31,7 +32,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   // Verificar si el usuario puede navegar a páginas de administración
-  const canNavigateToAdmin = user?.role === 'super_admin' || user?.role === 'admin' || user?.role === 'coordinator';
+  const canNavigateToAdmin = user?.role === UserRole.SUPER_ADMIN || user?.role === UserRole.COORDINATOR;
 
   // Fetch statistics
   const { data: courses, isLoading: coursesLoading } = useQuery({

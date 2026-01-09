@@ -36,12 +36,18 @@ def create_superadmin():
             print(f"   Rol: {existing.role}")
             return
 
+        # Obtener contraseña desde variable de entorno o solicitar input
+        superadmin_password = os.environ.get("SUPERADMIN_PASSWORD")
+        if not superadmin_password:
+            import getpass
+            superadmin_password = getpass.getpass("Ingresa la contraseña para superadmin: ")
+        
         # Crear nuevo super admin
         superadmin = User(
-            email="superadmin@universidad.edu",
-            username="superadmin",
-            full_name="Super Administrador",
-            hashed_password=get_password_hash("super123"),
+            email="SUPERADMIN@UNIVERSIDAD.EDU",
+            username="SUPERADMIN",
+            full_name="SUPER ADMINISTRADOR",
+            hashed_password=get_password_hash(superadmin_password),
             role=UserRole.SUPER_ADMIN,
             is_active=True
         )
@@ -53,12 +59,11 @@ def create_superadmin():
         print("=" * 60)
         print("✅ Super Administrador creado exitosamente!")
         print("=" * 60)
-        print(f"\n📋 CREDENCIALES:")
-        print(f"   Usuario:    superadmin")
-        print(f"   Contraseña: super123")
+        print(f"\n📋 DATOS:")
+        print(f"   Usuario:    {superadmin.username}")
         print(f"   Rol:        {superadmin.role}")
         print(f"   Email:      {superadmin.email}")
-        print(f"\n🔐 Usa estas credenciales para iniciar sesión")
+        print(f"\n🔐 Usa el usuario y la contraseña que estableciste")
         print("=" * 60)
 
     except Exception as e:

@@ -35,12 +35,15 @@ def create_admin_user():
             print(f"Usuario: {existing_admin.username}")
             return
 
+        # Obtener contraseña desde variable de entorno o usar valor por defecto para desarrollo
+        admin_password = os.environ.get("ADMIN_PASSWORD", "changeme123")
+        
         # Crear nuevo admin
         admin_user = User(
-            email="admin@universidad.edu",
-            username="admin",
-            full_name="Administrador del Sistema",
-            hashed_password=get_password_hash("admin123"),  # CAMBIAR EN PRODUCCIÓN
+            email="ADMIN@UNIVERSIDAD.EDU",
+            username="ADMIN",
+            full_name="ADMINISTRADOR DEL SISTEMA",
+            hashed_password=get_password_hash(admin_password),
             role=UserRole.SUPER_ADMIN,
             is_active=True
         )
@@ -51,8 +54,7 @@ def create_admin_user():
 
         print("✅ Usuario administrador creado exitosamente")
         print(f"Usuario: {admin_user.username}")
-        print(f"Contraseña: admin123")
-        print("\nIMPORTANTE: Cambiar la contraseña inmediatamente en producción")
+        print("\n⚠️  IMPORTANTE: Establece ADMIN_PASSWORD como variable de entorno en producción")
 
     except Exception as e:
         print(f"❌ Error al crear administrador: {e}")

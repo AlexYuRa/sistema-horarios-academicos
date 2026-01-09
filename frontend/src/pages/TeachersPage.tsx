@@ -53,7 +53,6 @@ export default function TeachersPage() {
 
   // Verificar si el usuario es teacher
   const isTeacher = user?.role === UserRole.TEACHER;
-  const _isAdmin = user?.role === UserRole.SUPER_ADMIN || user?.role === UserRole.COORDINATOR;
 
   // Fetch teachers
   const { data: teachers, isLoading, refetch } = useQuery<Teacher[]>({

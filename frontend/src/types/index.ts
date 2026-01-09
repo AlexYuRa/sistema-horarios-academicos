@@ -103,6 +103,7 @@ export interface Teacher {
   id: number;
   user_id: number;
   employee_code: string;
+  full_name?: string;
   phone?: string;
   max_weekly_hours: number;
   availability?: TeacherAvailability[];

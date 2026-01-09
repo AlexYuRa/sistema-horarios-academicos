@@ -63,6 +63,7 @@ export default function UsersPage() {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formData, setFormData] = useState<UserCreate>(initialFormData);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Fetch users
   const { data: users, isLoading, refetch } = useQuery<User[]>({

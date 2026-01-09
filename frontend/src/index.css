@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Estilo para inputs que deben mostrar texto en MAYÚSCULAS */
+.uppercase-input input,
+.uppercase-input textarea {
+  text-transform: uppercase;
+}
+
+/* Para Material-UI TextField con la clase uppercase-input */
+.MuiTextField-root.uppercase-input input,
+.MuiTextField-root.uppercase-input textarea {
+  text-transform: uppercase;
+}

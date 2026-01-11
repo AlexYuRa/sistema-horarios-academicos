@@ -67,13 +67,17 @@ app = FastAPI(
     description="Sistema inteligente de planificación de horarios académicos utilizando algoritmos metaheurísticos"
 )
 
-# Configurar CORS
+# Configurar CORS - Más permisivo para producción
+origins = settings.cors_origins
+print(f"🌐 CORS origins configurados: {origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Incluir routers

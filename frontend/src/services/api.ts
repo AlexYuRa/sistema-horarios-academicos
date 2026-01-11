@@ -4,6 +4,13 @@ import axios from 'axios';
 const PRODUCTION_URL = 'https://sistema-horarios-academicos-production.up.railway.app';
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PRODUCTION_URL : 'http://localhost:8000');
 
+// Debug: mostrar qué URL se está usando
+console.log('🔧 API Configuration:', {
+  VITE_API_URL: import.meta.env.VITE_API_URL,
+  PROD: import.meta.env.PROD,
+  FINAL_URL: API_URL
+});
+
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {

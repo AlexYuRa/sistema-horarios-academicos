@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// URL de producción por defecto si no hay variable de entorno
+const PRODUCTION_URL = 'https://sistema-horarios-academicos-production.up.railway.app';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PRODUCTION_URL : 'http://localhost:8000');
 
 const apiClient = axios.create({
   baseURL: API_URL,

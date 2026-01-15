@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from typing import List, Optional
+import os
 
 
 class Settings(BaseSettings):
@@ -8,7 +9,7 @@ class Settings(BaseSettings):
     # Información de la aplicación
     APP_NAME: str = "Sistema de Planificación de Horarios Académicos"
     APP_VERSION: str = "1.0.0"
-    DEBUG: bool = True
+    DEBUG: bool = os.getenv("DEBUG", "False").lower() == "true"
 
     # Base de datos
     DATABASE_URL: str

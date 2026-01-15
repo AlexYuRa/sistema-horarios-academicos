@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 import time
 
@@ -49,7 +49,13 @@ async def get_schedule(
     current_user: User = Depends(get_current_active_user)
 ):
     """Obtener horario por ID con todos sus slots"""
-    schedule = db.query(Schedule).filter(Schedule.id == schedule_id).first()
+    # Optimización: usar joinedload para evitar N+1 queries
+    # Carga todos los slots con sus relaciones (course, teacher, classroom) en una sola query
+    schedule = db.query(Schedule).options(
+        joinedload(Schedule.slots).joinedload(ScheduleSlot.course),
+        joinedload(Schedule.slots).joinedload(ScheduleSlot.teacher),
+        joinedload(Schedule.slots).joinedload(ScheduleSlot.classroom)
+    ).filter(Schedule.id == schedule_id).first()
 
     if not schedule:
         raise HTTPException(

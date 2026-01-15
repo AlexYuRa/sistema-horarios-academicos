@@ -20,6 +20,30 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+    @field_validator('password')
+    @classmethod
+    def validate_password(cls, v):
+        """
+        Validar fortaleza de contraseña:
+        - Mínimo 8 caracteres
+        - Al menos una letra mayúscula
+        - Al menos una letra minúscula
+        - Al menos un número
+        """
+        if len(v) < 8:
+            raise ValueError('La contraseña debe tener al menos 8 caracteres')
+
+        if not any(c.isupper() for c in v):
+            raise ValueError('La contraseña debe contener al menos una letra mayúscula')
+
+        if not any(c.islower() for c in v):
+            raise ValueError('La contraseña debe contener al menos una letra minúscula')
+
+        if not any(c.isdigit() for c in v):
+            raise ValueError('La contraseña debe contener al menos un número')
+
+        return v
+
 
 class UserUpdate(BaseModel):
     email: Optional[EmailStr] = None
